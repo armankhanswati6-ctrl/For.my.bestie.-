@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestie Questionnaire</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffeef8;
+            text-align: center;
+        }
+        #card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+        h2 { color: #d63384; }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .yes-btn { background-color: #ff4d6d; color: white; }
+        .no-btn { background-color: #adb5bd; color: white; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div id="card">
+    <div id="content">
+        <div id="step1">
+            <h2>Do you love me?</h2>
+            <div class="btn-container">
+                <button class="yes-btn" onclick="nextStep(2)">Yes</button>
+                <button id="noBtn" class="no-btn" onclick="handleNo()">No</button>
+            </div>
+        </div>
+
+        <div id="step2" class="hidden">
+            <h2>Hmm think again...</h2>
+            <p>Are you sure?</p>
+            <div class="btn-container">
+                <button class="yes-btn" onclick="nextStep(3)">Are you sure?</button>
+            </div>
+        </div>
+
+        <div id="step3" class="hidden">
+            <h2>😘😘😘 kiss do ab tor mkh ka</h2>
+            <div class="btn-container">
+                <button class="yes-btn" onclick="nextStep(4)">Ok 🥰</button>
+            </div>
+        </div>
+
+        <div id="step4" class="hidden">
+            <h2>phr socho kiss do 😘 tor mkh k</h2>
+            <div class="btn-container">
+                <button class="yes-btn" onclick="finish()">Ok lo 🥰</button>
+            </div>
+        </div>
+
+        <div id="final" class="hidden">
+            <h2>Yay! ❤️</h2>
+            <p>Besties forever!</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let noClickCount = 0;
+
+    function handleNo() {
+        noClickCount++;
+        const noBtn = document.getElementById('noBtn');
+        
+        if (noClickCount === 1) {
+            noBtn.innerText = "Wait, really?";
+        } else if (noClickCount >= 2) {
+            // After 2 clicks, the No button disappears or turns into Yes
+            noBtn.innerText = "Yes!";
+            noBtn.classList.remove('no-btn');
+            noBtn.classList.add('yes-btn');
+            noBtn.onclick = () => nextStep(2);
+        }
+    }
+
+    function nextStep(step) {
+        // Hide all steps
+        for(let i=1; i<=4; i++) {
+            document.getElementById('step' + i).classList.add('hidden');
+        }
+        // Show current step
+        document.getElementById('step' + step).classList.remove('hidden');
+    }
+
+    function finish() {
+        document.getElementById('step4').classList.add('hidden');
+        document.getElementById('final').classList.remove('hidden');
+    }
+</script>
+
+</body>
+</html>
